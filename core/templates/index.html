@@ -37,16 +37,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Login_Cadastro.html">Login/Cadastro</a>
+            <a class="nav-link" href="{% url 'login_cadastro' %}">Login/Cadastro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="perfil.html">perfil</a>
+            <a class="nav-link" href="{% url 'perfil' %}">perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Categorias</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contatos</a>
+            <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
           </li>
         </ul>
       </div>
@@ -226,7 +223,7 @@
     <!-- /.row -->
 
     <div class="card-footer">
-            <a href="#" class="btn btn-primary">Voltar ao topo </a>
+            <a href="#" class="btn btn-success">Voltar ao topo </a>
           </div>
 
   </div>

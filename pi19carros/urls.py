@@ -1,3 +1,4 @@
+
 """pi19carros URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home
+from core.views import home, categoria, perfil, login_cadastro
 
 
 urlpatterns = [
     path('', home, name = 'home'),
-       path('admin/', admin.site.urls),
-       ]
+    path('categoria', categoria, name='categoria'),
+    path('perfil' , perfil, name='perfil'),
+    path('login_cadastro' , login_cadastro, name='login_cadastro' ),
+    path('admin/', admin.site.urls),
+]
