@@ -11,10 +11,13 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'assets/css/form-elements.css'%}">
   <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
+
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
+  <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +36,33 @@
         </head>
 
         <body>
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top porra">
+            <div class="container">
+              <a class="navbar-brand porra1" href="#">AutoCorns</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Início
+                      <span class="sr-only">(current)</span>
 
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login_cadastro' %}">Login/Cadastro</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'perfil' %}">perfil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
           <!-- Top content -->
           <div class="top-content">
 
