@@ -1,4 +1,5 @@
 # pi19carros
-library used
 
-# pip install Pillow
+# library used
+
+ pip install Pillow
