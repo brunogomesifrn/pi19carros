@@ -31,19 +31,19 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Início
+            <a class="nav-link" href="{% url 'home' %}">Início
               <span class="sr-only">(current)</span>
               
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login/Cadastro</a>
+            <a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">perfil</a>
+            <a class="nav-link" href="{% url 'perfil' %}">perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Categorias</a>
+            <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
           </li>
         </ul>
       </div>
