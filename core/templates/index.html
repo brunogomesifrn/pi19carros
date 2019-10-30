@@ -40,7 +40,7 @@
             <a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'perfil' %}">perfil</a>
+            <a class="nav-link" href="{% url 'perfil' user.id %}">perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>

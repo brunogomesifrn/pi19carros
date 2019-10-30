@@ -18,19 +18,20 @@ class UserForm(ModelForm):
 class UsuarioForm(ModelForm):
 	class Meta:
 		model = Usuario
-		fields = ['user', 'endereco', 'imagem_perfil']
+		fields = ['user', 'endereco', 'numero']
 		widgets = {
 		'user': forms.HiddenInput(),
 		'endereco': forms.TextInput(attrs={'class':'form-control'}),
-		'imagem_perfil': forms.FileInput(attrs={'class':'form-control'}),
+		'numero': forms.TextInput(attrs={'class':'form-control'}),
+		
 		}
 
 
-class FotoForm(ModelForm):
-	class Meta:
-		model = Usuario
-		fields = ['imagem_perfil']
-		widgets = {
-			'imagem_perfil': forms.FileInput(attrs={'class':'form-control'}),
-		}
+# class FotoForm(ModelForm):
+# 	class Meta:
+# 		model = Usuario
+# 		fields = ['imagem_perfil']
+# 		widgets = {
+# 			'imagem_perfil': forms.FileInput(attrs={'class':'form-control'}),
+# 		}
 		

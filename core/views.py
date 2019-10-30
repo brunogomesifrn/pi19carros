@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from .form import UserForm, UsuarioForm, FotoForm
+from .form import UserForm, UsuarioForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import Usuario
 
 def home(request):
     return render(request, 'index.html')
@@ -11,21 +13,25 @@ def categoria(request):
     return render(request, 'categorias.html')
 
 @login_required
-def perfil(request):
-    return render(request, 'perfil.html')
+def perfil(request, pk):
+    dados = {}
+    user = User.objects.get(pk = pk)
+    usuario = Usuario.objects.get(user = user.pk)
+    dados["usuario"] = usuario
+    return render(request, 'perfil.html', dados)
 
 
 @login_required
-def edit_perfil(request):
+def edit_perfil(request, pk):
     dados = {} 
-    
+    user = User.objects.get(pk = pk)
     if request.method == 'POST':
-        form = UserForm(data=request.POST)
+        form = UsuarioForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('perfil')
+            return redirect('perfil', pk=user.id)
     else:
-        form = UsuarioForm(initial={'user':request.user})
+        form = UsuarioForm(initial={'user':user.id})
     dados['form'] = form
     return render(request, 'edit_perfil.html', dados) 
 
@@ -40,6 +46,7 @@ def cadastro(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.first_name
+            user.set_password(request.POST['password'])
             user.is_staff = True
             user.is_superuser = True
             user.save()
