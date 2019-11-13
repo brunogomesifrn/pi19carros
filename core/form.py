@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
-from .models import Usuario 
+from .models import Usuario, Carros_Diarios, Carros_Comprar
 
 
 class UserForm(ModelForm):
@@ -25,6 +25,30 @@ class UsuarioForm(ModelForm):
 		'numero': forms.TextInput(attrs={'class':'form-control'}),
 		
 		}
+
+class CarroForm(ModelForm):
+	class Meta:
+		model = Carros_Comprar
+		fields = ['nome', 'preco','link', 'imagem']
+		widgets = {
+		'nome': forms.TextInput(attrs={'class':'form-control'}),
+		'imagem': forms.FileInput(attrs={'class':'form-control'}),
+		'preco': forms.NumberInput(attrs={'class':'form-control'}),
+		'link': forms.TextInput(attrs={'class':'form-control'}),
+		
+		}
+
+class CarroDiariosForm(ModelForm):
+	class Meta:
+		model = Carros_Diarios
+		fields = ['nome', 'preco','link', 'imagem']
+		widgets = {
+		'nome': forms.TextInput(attrs={'class':'form-control'}),
+		'imagem': forms.FileInput(attrs={'class':'form-control'}),
+		'preco': forms.NumberInput(attrs={'class':'form-control'}),
+		'link': forms.TextInput(attrs={'class':'form-control'}),
+		
+		}	
 
 
 # class FotoForm(ModelForm):

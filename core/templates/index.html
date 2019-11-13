@@ -10,7 +10,16 @@
   <meta name="author" content="">
 
   <title>Desenvolvimento AutoCorns</title>
+  <style type="text/css">
+    .center{
+      margin: 0 auto;
+      text-align: center;
 
+    }
+    .cor{
+
+    }
+  </style>
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -39,12 +48,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
           </li>
+
+         {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'perfil' user.id %}">perfil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
-          </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -52,180 +61,65 @@
 
   <!-- Page Content -->
   <div class="container">
-    {% if user.is_authenticated %}
-      Você esta logado
-    {% endif %}
+  
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">
       <h1 class="display-3">AutoCorns</h1>
       <p class="lead">Venda e Aluguel de Carros </p>
     </header>
 
-    <!-- Page Features -->
+    <h4 class="card-title btn-primary" align="center">Aluguel</h4>
     <div class="row text-center">
+     
 
-      <div class="col-lg-3 col-md-6 mb-4">
+    {% for carro in carros_d %}
+    
+      <div class="col-lg-3 col-md-6 col-sm-4 col-12">
         <div class="card h-100">
-          <img class="card-img-top" src="https://imguol.com/c/carros/blogs/32/2018/08/31/citroen-c4-cactus-para-pcd-ja-pode-ser-encomendado-por-r-69990-1535734358325_v2_900x506.jpg" alt="">
+          <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
           <div class="card-body">
-            <h4 class="card-title">CITROEN C4 CACTUS</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
+            <h4 class="card-title">{{ carro.nome }}</h4>
+            <p class="card-text"><h5>R$ {{ carro.preco }} </h5>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
+            <a href="{{ carro.link }}" class="btn btn-primary">Acessar</a>
           </div>
         </div>
       </div>
+   
+    {% endfor %}
+     </div>
 
-      <div class="col-lg-3 col-md-6 mb-4">
+     <h4 class="card-title btn-primary" align="center">Comprar</h4>
+    <div class="row text-center">
+     
+
+    {% for carro in carros_c %}
+    
+      <div class="col-lg-3 col-md-6 col-sm-4 col-12">
         <div class="card h-100">
-          <img class="card-img-top" src="https://fotos.jornaldocarro.estadao.com.br/uploads/2018/12/03151834/37620922-1160x773.jpg" alt="">
+          <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
           <div class="card-body">
-            <h4 class="card-title">JEEP COMPASS</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
+            <h4 class="card-title">{{ carro.nome }}</h4>
+            <p class="card-text"><h5>R$ {{ carro.preco }} </h5>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
+            {% if user.is_authenticated %}
+            <a href="{{ carro.link }}" class="btn btn-primary">Acessar</a>
+            {% else %}
+            <a href="{% url 'cadastro' %}" class="btn btn-primary">Cadastra-se</a>
+            {% endif %}
           </div>
         </div>
       </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://production.autoforce.com/uploads/picture/image/26290531/used_model_comprar-compass-2-0-16v-limited-2019-347_ab5b276c20.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">JEEP COMPASS</h4>
-            <p class="card-text"><h5>R$ 69.568</h5> </br>Á vista</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://img2.icarros.com/dbimg/imgadicionalnoticia/4/103482_1" alt="">
-          <div class="card-body">
-            <h4 class="card-title">CHEVROLET TRAILBLAZER</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://www.vw.com.br/content/dam/vw-ngw/vw_pkw/importers/br/models/my20/jetta/stage/Volkswagen_Jetta_GLI_Stage_01_2560x1440px.jpg/_jcr_content/renditions/original.transform/max/img.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">VOLKSWAGEM JETTA</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://http2.mlstatic.com/D_NQ_NP_748494-MLB30105882905_042019-W.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">HONDA CIVIC</h4>
-            <p class="card-text"><h5>R$ 78.890</h5> </br>Á vista</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/2018-cruze/colorizer/01-images/novo-cruze-2018-vermelho-edible-summit-mov-intro-01.png?imwidth=1200" alt="">
-          <div class="card-body">
-            <h4 class="card-title">CHEVROLET CRUZE</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://img1.icarros.com/dbimg/galeriaimgmodelo/2/126550_1" alt="">
-          <div class="card-body">
-            <h4 class="card-title">TOYOTA COROLLA</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://production.autoforce.com/uploads/picture/image/26290531/used_model_comprar-compass-2-0-16v-limited-2019-347_ab5b276c20.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">JEEP COMPASS</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://production.autoforce.com/uploads/picture/image/26290531/used_model_comprar-compass-2-0-16v-limited-2019-347_ab5b276c20.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">JEEP COMPASS</h4>
-            <p class="card-text"><h5>R$ 90.560</h5> </br>Á vista</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://production.autoforce.com/uploads/picture/image/26290531/used_model_comprar-compass-2-0-16v-limited-2019-347_ab5b276c20.jpg" alt="">
-          <div class="card-body">
-            <h4 class="card-title">JEEP COMPASS</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src=https://abrilquatrorodas.files.wordpress.com/2019/06/kia-seltos-2020-1600-01-e1561122591812.jpg?quality=70&strip=info&w=1024" alt="">
-          <div class="card-body">
-            <h4 class="card-title">KIA SELTOS</h4>
-            <p class="card-text"><h5>R$86.490 </h5> Taxa Zero</br> Entrada + Saldo em 24x</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">comprar</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+   
+    {% endfor %}
+     </div>
     <!-- /.row -->
 
-    <div class="card-footer">
-            <a href="#" class="btn btn-success">Voltar ao topo </a>
-          </div>
+    <div class="card-footer center">
+            <a href="#" class="btn btn-success" >Voltar ao topo </a>
+    </div>
 
   </div>
   <!-- /.container -->

@@ -4,10 +4,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Usuario
+from .models import Usuario, Carros_Diarios, Carros_Comprar
 
 def home(request):
-    return render(request, 'index.html')
+    dados = {}
+    carros_d = Carros_Diarios.objects.all().order_by('-id')
+    carros_c = Carros_Comprar.objects.all().order_by('-id')
+    dados["carros_d"] = carros_d
+    dados["carros_c"] = carros_c
+    return render(request, 'index.html', dados)
 
 def categoria(request):
     return render(request, 'categorias.html')
