@@ -21,7 +21,10 @@ def categoria(request):
 def perfil(request, pk):
     dados = {}
     user = User.objects.get(pk = pk)
-    usuario = Usuario.objects.get(user = user.pk)
+    try:
+        usuario = Usuario.objects.get(pk=pk)
+    except Usuario.DoesNotExist:
+        usuario = None
     dados["usuario"] = usuario
     return render(request, 'perfil.html', dados)
 
