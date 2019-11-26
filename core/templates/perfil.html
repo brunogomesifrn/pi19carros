@@ -13,6 +13,13 @@
   <!-- <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> -->
   <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
 
+  <style type="text/css">
+      .center1{
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 100px;
+      }
+  </style>
 </head>
 <body>
 <!-- <h2>Perfil do Usuario:</H2>
@@ -33,11 +40,17 @@
               
             </a>
           </li>
-          <li class="nav-item">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
-          </li>
+            </li>
+            {% endif %}
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'perfil' user.id %}">perfil</a>
+            <a class="nav-link active" href="{% url 'perfil' user.id %}">Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
@@ -51,36 +64,8 @@
 <div class="container emp-profile">
             <form method="post">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="{% static 'img/marcelo.jpg' %}" width="310" height="280" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h5>
-                                        Kshiti Ghelani
-                                    </h5>
-                                    <h6>
-                                        Web Developer and Designer
-                                    </h6>
-                                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{% url 'edit_perfil' user.id %}" class="profile-edit-btn"> Editar perfil</a>
+                    <div class="col-12 center1">
+                        <a href="{% url 'edit_perfil' user.id %}" class="profile-edit-btn btn-primary btn"> Editar perfil</a>
                     </div>
                 </div>
                 <div class="row">

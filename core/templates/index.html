@@ -45,15 +45,26 @@
               
             </a>
           </li>
+          <{% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Logout</a>
+          </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
           </li>
+          {% endif %}
 
          {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'perfil' user.id %}">perfil</a>
+            <a class="nav-link" href="{% url 'perfil' user.id %}">Perfil</a>
           </li>
+  
           {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'categoria' %}">Categorias</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -79,7 +90,8 @@
           <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
           <div class="card-body">
             <h4 class="card-title">{{ carro.nome }}</h4>
-            <p class="card-text"><h5>R$ {{ carro.preco }} </h5>
+            <p class="card-text"><h5>R$ {{ carro.preco }} </h5></p>
+            <p class="card-text"><h5> {{ carro.cor }} </h5></p>
           </div>
           <div class="card-footer">
             <a href="{{ carro.link }}" class="btn btn-primary">Acessar</a>
@@ -101,7 +113,8 @@
           <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
           <div class="card-body">
             <h4 class="card-title">{{ carro.nome }}</h4>
-            <p class="card-text"><h5>R$ {{ carro.preco }} </h5>
+            <p class="card-text"><h5>R$ {{ carro.preco }} </h5></p>
+            <p class="card-text"><h5> {{ carro.cor }} </h5></p>
           </div>
           <div class="card-footer">
             {% if user.is_authenticated %}

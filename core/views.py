@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Usuario, Carros_Diarios, Carros_Comprar
+from .models import Usuario, Carros_Diarios, Carros_Comprar, Categorias
+from itertools import chain
 
 def home(request):
     dados = {}
@@ -15,7 +16,14 @@ def home(request):
     return render(request, 'index.html', dados)
 
 def categoria(request):
-    return render(request, 'categorias.html')
+    dados = {}
+    dados['categoria'] = Categorias.objects.all()
+    d = Carros_Diarios.objects.all()
+    c = Carros_Comprar.objects.all()
+    carros = list(chain(d, c))
+    dados['carros_d'] = carros
+
+    return render(request, 'categorias.html', dados)
 
 @login_required
 def perfil(request, pk):
@@ -33,13 +41,30 @@ def perfil(request, pk):
 def edit_perfil(request, pk):
     dados = {} 
     user = User.objects.get(pk = pk)
-    if request.method == 'POST':
-        form = UsuarioForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('perfil', pk=user.id)
+
+    try:
+        usuario = Usuario.objects.get(pk=user.pk)
+    except Usuario.DoesNotExist:
+        usuario = None
+
+    if usuario != None:
+        if request.method == 'POST':
+            form = UsuarioForm(data=request.POST, instance=usuario)
+            if form.is_valid():
+                form.save()
+                return redirect('perfil', pk=user.id)
+        else:
+            form = UsuarioForm(initial={'user':user.id})
+        dados['form'] = form
     else:
-        form = UsuarioForm(initial={'user':user.id})
+        if request.method == 'POST':
+            form = UsuarioForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('perfil', pk=user.id)
+        else:
+            form = UsuarioForm(initial={'user':user.id})
+    
     dados['form'] = form
     return render(request, 'edit_perfil.html', dados) 
 
