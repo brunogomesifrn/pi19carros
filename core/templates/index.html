@@ -11,20 +11,20 @@
 
   <title>Desenvolvimento AutoCorns</title>
   <style type="text/css">
-    .center{
-      margin: 0 auto;
-      text-align: center;
+  .center{
+    margin: 0 auto;
+    text-align: center;
 
-    }
-    .cor{
+  }
+  .cor{
 
-    }
-  </style>
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  }
+</style>
+<!-- Bootstrap core CSS -->
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
 
 </head>
 
@@ -55,11 +55,11 @@
           </li>
           {% endif %}
 
-         {% if user.is_authenticated %}
+          {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'perfil' user.id %}">Perfil</a>
           </li>
-  
+
           {% endif %}
 
           <li class="nav-item">
@@ -72,7 +72,7 @@
 
   <!-- Page Content -->
   <div class="container">
-  
+
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">
       <h1 class="display-3">AutoCorns</h1>
@@ -81,10 +81,10 @@
 
     <h4 class="card-title btn-primary" align="center">Aluguel</h4>
     <div class="row text-center">
-     
 
-    {% for carro in carros_d %}
-    
+
+      {% for carro in carros_d %}
+
       <div class="col-lg-3 col-md-6 col-sm-4 col-12">
         <div class="card h-100">
           <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
@@ -95,19 +95,27 @@
           </div>
           <div class="card-footer">
             <a href="{{ carro.link }}" class="btn btn-primary">Acessar</a>
+            <form role="form" action="{% url 'home'%}" method="post" enctype="multipart/form-data" class="login-form">
+
+              {% csrf_token %}
+              <input type="hidden" name="user" value="{{ user.id }}" class="form-control box-input" placeholder="Seu usuário" />
+              <input type="hidden" name="carros_d" value="{{ carro.id }}" class="form-control box-input" placeholder="Seu usuário" />
+              <br>
+              <button type="submit" class="btn btn-warning">Adcionar a Lista de Desejos</button>
+            </form>
           </div>
         </div>
       </div>
-   
-    {% endfor %}
-     </div>
 
-     <h4 class="card-title btn-primary" align="center">Comprar</h4>
+      {% endfor %}
+    </div>
+
+    <h4 class="card-title btn-primary" align="center">Comprar</h4>
     <div class="row text-center">
-     
 
-    {% for carro in carros_c %}
-    
+
+      {% for carro in carros_c %}
+
       <div class="col-lg-3 col-md-6 col-sm-4 col-12">
         <div class="card h-100">
           <img class="card-img-top" src="{{ carro.imagem.url }}" alt="">
@@ -119,19 +127,20 @@
           <div class="card-footer">
             {% if user.is_authenticated %}
             <a href="{{ carro.link }}" class="btn btn-primary">Acessar</a>
+
             {% else %}
             <a href="{% url 'cadastro' %}" class="btn btn-primary">Cadastra-se</a>
             {% endif %}
           </div>
         </div>
       </div>
-   
-    {% endfor %}
-     </div>
+
+      {% endfor %}
+    </div>
     <!-- /.row -->
 
     <div class="card-footer center">
-            <a href="#" class="btn btn-success" >Voltar ao topo </a>
+      <a href="#" class="btn btn-success" >Voltar ao topo </a>
     </div>
 
   </div>

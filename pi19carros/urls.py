@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, categoria, perfil, login_, cadastro, edit_perfil
+from core.views import home, categoria, perfil, login_, cadastro, edit_perfil, desejo
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro' , cadastro, name='cadastro' ),
     path('edicao_perfil/<int:pk>', edit_perfil, name='edit_perfil'),
+    path('desejo' , desejo, name='desejo' ),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

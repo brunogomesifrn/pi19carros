@@ -45,3 +45,11 @@ class Carros_Comprar(models.Model):
 
 	def __str__(self):
 			return self.nome
+
+class Lista_Desejos(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	carro_d = models.ForeignKey(Carros_Diarios, on_delete=models.CASCADE, blank=True, null=True)
+	
+	
+	def __str__(self):
+		return self.nome

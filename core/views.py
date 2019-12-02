@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .form import UserForm, UsuarioForm
+from .form import UserForm, UsuarioForm, DesejoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Usuario, Carros_Diarios, Carros_Comprar, Categorias
+from .models import Usuario, Carros_Diarios, Carros_Comprar, Categorias, Lista_Desejos
 from itertools import chain
 
 def home(request):
@@ -13,7 +13,36 @@ def home(request):
     carros_c = Carros_Comprar.objects.all().order_by('-id')
     dados["carros_d"] = carros_d
     dados["carros_c"] = carros_c
+    try:
+        user = User.objects.get(pk=request.user.pk)
+    except User.DoesNotExist:
+        user = None
+
+    if user != None:
+        if request.method == 'POST':
+            form = DesejoForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('perfil', pk=user.pk)
+            else:
+                return HttpResponse('erro')
+
+        else:
+            form = DesejoForm(initial={'user':user.pk})
+
+        dados["form"] = form
+
     return render(request, 'index.html', dados)
+
+def desejo(request):
+    dados = {}
+    dados['categoria'] = Lista_Desejos.objects.all()
+    d = Carros_Diarios.objects.all()
+    c = Carros_Comprar.objects.all()
+    carros = list(chain(d, c))
+    dados['carros_d'] = carros
+
+    return render(request, 'desejos.html', dados)
 
 def categoria(request):
     dados = {}

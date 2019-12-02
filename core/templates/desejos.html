@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+	<link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">AutoCorns</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">Início
+							<span class="sr-only">(current)</span>
+
+						</a>
+					</li>
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}">Logout</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}">Login/Cadastro</a>
+					</li>
+					{% endif %}
+
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'perfil' user.id %}">Perfil</a>
+					</li>
+					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url 'categoria' %}">Categorias</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+
+
+		<h1>Escolha a categoria desejada:</h1>
+		<div class="row text-center">
+			<h2> SUV:</h2> 
+		</div>
+		<div class="row text-center">
+			{% for carros in carros_d %}
+			{% if carros.categoria.nome == "SUV" %}
+			<div class="col-lg-3 col-md-6 col-sm-4 col-12">
+				<div class="card h-100">
+					<img class="card-img-top" src="{{ carros.imagem.url }}" alt="">
+					<div class="card-body">
+						<h4 class="card-title">{{ carros.nome }}</h4>
+						<p class="card-text"><h5>R$ {{ carros.preco }} </h5></p>
+						<p class="card-text"><h5> {{ carros.cor }} </h5></p>
+					</div>
+					<div class="card-footer">
+						<a href="{{ carros.link }}" class="btn btn-primary">Acessar</a>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		
+		<div class="row text-center">
+			<h2> Sedan:</h2> 
+		</div>
+		<div class="row text-center">
+			{% for carros in carros_d %}
+			{% if carros.categoria.nome == "Sedan" %}
+			<div class="col-lg-3 col-md-6 col-sm-4 col-12">
+				<div class="card h-100">
+					<img class="card-img-top" src="{{ carros.imagem.url }}" alt="">
+					<div class="card-body">
+						<h4 class="card-title">{{ carros.nome }}</h4>
+						<p class="card-text"><h5>R$ {{ carros.preco }} </h5></p>
+						<p class="card-text"><h5> {{ carros.cor }} </h5></p>
+					</div>
+					<div class="card-footer">
+						<a href="{{ carros.link }}" class="btn btn-primary">Acessar</a>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+
+	</br>
+	<div class="row text-center">
+		<h2> Picapes:</h2> 
+	</div>
+	<div class="row text-center">
+		{% for carros in carros_d %}
+		{% if carros.categoria.nome == "Picapes" %}
+		<div class="col-lg-3 col-md-6 col-sm-4 col-12">
+			<div class="card h-100">
+				<img class="card-img-top" src="{{ carros.imagem.url }}" alt="">
+				<div class="card-body">
+					<h4 class="card-title">{{ carros.nome }}</h4>
+					<p class="card-text"><h5>R$ {{ carros.preco }} </h5></p>
+					<p class="card-text"><h5> {{ carros.cor }} </h5></p>
+				</div>
+				<div class="card-footer">
+					<a href="{{ carros.link }}" class="btn btn-primary">Acessar</a>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+
+</br>
+<div class="row text-center">
+	<h2> Hatch/Compactos:</h2> 
+</div>
+<div class="row text-center">
+	{% for carros in carros_d %}
+	{% if carros.categoria.nome == "Hatch/Compactos" %}
+	<div class="col-lg-3 col-md-6 col-sm-4 col-12">
+		<div class="card h-100">
+			<img class="card-img-top" src="{{ carros.imagem.url }}" alt="">
+			<div class="card-body">
+				<h4 class="card-title">{{ carros.nome }}</h4>
+				<p class="card-text"><h5>R$ {{ carros.preco }} </h5></p>
+				<p class="card-text"><h5> {{ carros.cor }} </h5></p>
+			</div>
+			<div class="card-footer">
+				<a href="{{ carros.link }}" class="btn btn-primary">Acessar</a>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+
+</br>
+<div class="row text-center">
+	<h2> Minivans:</h2> 
+</div>
+<div class="row text-center">
+	{% for carros in carros_d %}
+	{% if carros.categoria.nome == "Minivans" %}
+	<div class="col-lg-3 col-md-6 col-sm-4 col-12">
+		<div class="card h-100">
+			<img class="card-img-top" src="{{ carros.imagem.url }}" alt="">
+			<div class="card-body">
+				<h4 class="card-title">{{ carros.nome }}</h4>
+				<p class="card-text"><h5>R$ {{ carros.preco }} </h5></p>
+				<p class="card-text"><h5> {{ carros.cor }} </h5></p>
+			</div>
+			<div class="card-footer">
+				<a href="{{ carros.link }}" class="btn btn-primary">Acessar</a>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+
+</br>
+
+</div>
+
+</div>
+</body>
+</html>
